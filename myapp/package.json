@@ -1,0 +1,21 @@
+{
+  "name": "myapp",
+  "version": "0.0.0",
+  "main": "lib/main",
+  "modulr": {
+    "paths": [
+      "./lib",
+      ".",
+      "../",
+      "../bolt"
+    ]
+  },
+  "bolt_build_manifest": {
+    "require_css": true,
+    "sources": [
+      "index.html"
+    ],
+    "package_target": "build",
+    "package_name": "myapp"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "utils",
+  "version": "0.0.0",
+  "modulr": {
+    "paths": [
+      "./lib",
+    ]
+  },
+}

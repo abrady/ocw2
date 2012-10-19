@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width,target-densityDpi=device-dpi" />
+  <title>myapp tests</title>
+  <link rel="stylesheet" href="jasmine/jasmine.css" type="text/css" media="screen" />
+</head>
+<body>
+  <script type="text/javascript" src="jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+  <!--
+    The application code is built directly into the JavaScript file generated with modulr,
+    so you don't need to include the application code separately. 
+
+    Take a look inside myapp_tests.js in the build
+    directory after running bolt gentest
+  -->
+  <script type="text/javascript" src="myapp_tests.js"></script>
+
+  <script type="text/javascript">
+    jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+    jasmine.getEnv().execute();
+  </script>
+</body>
+</html>
