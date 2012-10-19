@@ -1,4 +1,2 @@
-exports.extend({
-  app_name: 'ocw2',
-  pub_root: 'myapp/build'
-});
+exports.app_name = 'ocw2';
+exports.pub_root = 'myapp/build';

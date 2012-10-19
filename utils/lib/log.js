@@ -1,53 +1,25 @@
-// Copyright 2004-present Facebook. All Rights Reserved.
+var util = require('util');
 
-// Licensed under the Apache License, Version 2.0 (the "License"); you may
-// not use this file except in compliance with the License. You may obtain
-// a copy of the License at
+exports.level = 0;
 
-//     http://www.apache.org/licenses/LICENSE-2.0
+function sev_msg(lvl) {
+  var sev = ['ERROR','WARN','INFO','DEBUG'];
+  return (lvl >= 0 && lvl < sev.length) 
+    ? sev[lvl] : String(lvl);    
+}
 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-// License for the specific language governing permissions and limitations
-// under the License.
-
-var open_files = {};
-
-function log(logname, user, msg, type) {
-  if (user)
-    var name = user.name;
-  else
-    name = 'unknown';
-  var str = '[' + new Date().toUTCString() + '] ' + name + ' ' + type + ': ' + msg + '\n';
-
-  if (open_files[logname] == undefined) {
-    var fd = fs.openSync('logs/' + logname + '.log', 'a+', 0666);
-    open_files[logname] = fd || 0;
-  }
-  var fd = open_files[logname];
-  if (fd) {
-    fs.write(fd, str, null, undefined, function(err, written) {
-        if (err)
-          console.log('log write err: ' + err);
-      });
+function log(lvl, msg) {
+  if (lvl <= exports.level) {
+    util.log(util.format('[%s]\t%s', sev_msg(lvl), msg));
   }
 }
 
-function error(logname, user, msg) {
-  return log(logname, user, msg, 'error');
-}
-
-function info(logname, user, msg) {
-  return log(logname, user, msg, 'info');
-}
-
-function http(str) {
-  log('default','sys',str,'none');
-  //sys.puts(str);
-}
-
-
-exports.error = error;
-exports.info = info;
-exports.http = http;
+exports.ERR   = 0;
+exports.WARN  = 1;
+exports.INFO  = 2;
+exports.DEBUG = 3;
+exports.log   = log;
+exports.debug = function (msg) { log(exports.DEBUG, msg); };
+exports.info  = function (msg) { log(exports.INFO, msg); };
+exports.warn  = function (msg) { log(exports.WARN, msg); };
+exports.err   = function (msg) { log(exports.ERR, msg); };
